@@ -20,7 +20,7 @@ class Ukrw(LunaPrice):
             res.raise_for_status()
             last = res.json().get("last")
             if last:
-                price = float(last) / helpers.MICRO
+                price = float(last) * helpers.MICRO
         except requests.exceptions.RequestException:
             pass
         except ValueError:
