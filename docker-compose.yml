@@ -5,6 +5,7 @@ services:
     build: .
     environment:
       DENOMS: ukrw
+      DEBUG: enabled
     ports:
       - 8000:8000
 
