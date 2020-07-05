@@ -6,6 +6,7 @@ authors = ["etienne-napoleone <etienne.napoleone@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
+prometheus_client = "^0.8.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
