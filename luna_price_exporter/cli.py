@@ -1,7 +1,7 @@
 from prometheus_client import start_http_server
 
-from price_exporter.config import Config
-from price_exporter.updater import Updater
+from luna_price_exporter.config import Config
+from luna_price_exporter.updater import Updater
 
 
 def entrypoint() -> None:

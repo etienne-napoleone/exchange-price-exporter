@@ -1,14 +1,16 @@
 from prometheus_client import Gauge
 import requests
 
-from price_exporter import helpers
-from price_exporter.price.lunaprice import LunaPrice
+from luna_price_exporter import helpers
+from luna_price_exporter.price.lunaprice import LunaPrice
 
 
 class Ukrw(LunaPrice):
     def __init__(self, ttl: int) -> None:
         LunaPrice.__init__(
-            self, ttl=ttl, metric=Gauge("price_ukrw", "Price of luna in ukrw")
+            self,
+            ttl=ttl,
+            metric=Gauge("luna_price_ukrw", "Luna price in ukrw"),
         )
 
     def fetch(self) -> None:

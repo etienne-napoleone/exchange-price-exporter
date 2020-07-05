@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  price-exporter:
+  luna-price-exporter:
     build: .
     environment:
       DENOMS: ukrw

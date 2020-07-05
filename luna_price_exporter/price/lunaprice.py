@@ -1,7 +1,7 @@
 from prometheus_client.metrics import MetricWrapperBase
 import poche
 
-from price_exporter import helpers
+from luna_price_exporter import helpers
 
 
 class LunaPrice:

@@ -1,7 +1,7 @@
 from typing import List
 import time
 
-from price_exporter.price import prices
+from luna_price_exporter.price import prices
 
 
 class Updater:

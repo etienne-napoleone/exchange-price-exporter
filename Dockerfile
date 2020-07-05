@@ -10,6 +10,6 @@ COPY pyproject.toml pyproject.toml
 
 RUN poetry install -n --no-dev
 
-COPY price_exporter price_exporter
+COPY luna_price_exporter luna_price_exporter
 
-ENTRYPOINT [ "poetry", "run", "price-exporter"]
+ENTRYPOINT [ "poetry", "run", "luna-price-exporter"]

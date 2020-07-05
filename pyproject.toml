@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "price_exporter"
+name = "luna_price_exporter"
 version = "0.1.0"
 description = ""
 authors = ["etienne-napoleone <etienne.napoleone@gmail.com>"]
@@ -18,7 +18,7 @@ mypy = "^0.782"
 coverage = "^5.1"
 
 [tool.poetry.scripts]
-price-exporter = 'price_exporter.cli:entrypoint'
+luna-price-exporter = 'luna_price_exporter.cli:entrypoint'
 
 [tool.black]
 line-length = 79
