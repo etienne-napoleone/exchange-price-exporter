@@ -1,4 +1,5 @@
 from typing import Dict
+from typing import Optional
 import json
 import logging
 
@@ -29,7 +30,7 @@ class BaseExchange:
     def __str__(self):
         return self.name
 
-    def _get(self, currency: str, market: str) -> dict:
+    def _get(self, currency: str, market: Optional[str]) -> dict:
         try:
             if market:
                 url = self.url_template.format(currency, market)
