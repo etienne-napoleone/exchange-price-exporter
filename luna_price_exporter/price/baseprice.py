@@ -3,7 +3,6 @@ import logging
 
 from prometheus_client import Gauge
 
-# from prometheus_client.metrics import MetricWrapperBase
 import poche
 
 from luna_price_exporter.exchange.baseexchange import BaseExchange
