@@ -32,6 +32,6 @@ Configuration is done through environment variables
 
 Available price denoms
 
-| Name | Exported metric   |
-|------|-------------------|
-| ukrw | `luna_price_ukrw` |
+| Name | Exported metric   | Exchanges (tag)     |
+|------|-------------------|---------------------|
+| ukrw | `luna_price_ukrw` | `coinone`/`bithumb` |
