@@ -10,10 +10,13 @@ class Updater:
     ) -> None:
         self.interval = interval
         self.denoms = denoms
+        self.prices = {
+            key: Price(interval + 2) for key, Price in prices.items()
+        }
 
     def start(self) -> None:
         while True:
             for denom in self.denoms:
                 if denom in prices.keys():
-                    prices[denom].fetch()
-            time.sleep(20)
+                    self.prices[denom].fetch()
+            time.sleep(self.interval)
