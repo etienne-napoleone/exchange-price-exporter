@@ -5,9 +5,7 @@ from price_exporter.price import prices
 
 
 class Updater:
-    def __init__(
-        self, interval: int = 10, denoms: List[str] = ["ukrw"]
-    ) -> None:
+    def __init__(self, interval: int, denoms: List[str]) -> None:
         self.interval = interval
         self.denoms = denoms
         self.prices = {
