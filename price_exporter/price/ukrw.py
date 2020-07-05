@@ -12,7 +12,7 @@ class Ukrw(LunaPrice):
         )
 
     def fetch(self) -> None:
-        price = helpers.NOT_A_NUMBER
+        price: helpers.PROM_FLOAT = helpers.NOT_A_NUMBER
         try:
             res = requests.get(
                 "https://api.coinone.co.kr/ticker/?currency=LUNA", timeout=1

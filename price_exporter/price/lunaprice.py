@@ -1,5 +1,3 @@
-from typing import Union
-
 from prometheus_client.metrics import MetricWrapperBase
 import poche
 
@@ -12,7 +10,7 @@ class LunaPrice:
         self._metric = metric
         self._metric.set_function(self.get)
 
-    def get(self) -> Union[float, str]:
+    def get(self) -> helpers.PROM_FLOAT:
         price = helpers.NOT_A_NUMBER
         try:
             price = self._cache.get("price")
