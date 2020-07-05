@@ -30,6 +30,8 @@ Configuration is done through environment variables
 
 ## Denoms
 
-The available prices denoms are:
+Available price denoms
 
-- ukrw
+| Name | Exported metric   |
+|------|-------------------|
+| ukrw | `luna_price_ukrw` |
