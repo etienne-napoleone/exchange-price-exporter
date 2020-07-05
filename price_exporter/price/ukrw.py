@@ -10,7 +10,7 @@ from price_exporter import helpers
 class Ukrw:
     def __init__(self, ttl: int = 30) -> None:
         self._cache = poche.Cache(ttl)
-        self._metric = Gauge("rate_ukrw", "Rate for luna in ukrw")
+        self._metric = Gauge("price_ukrw", "Price of luna in ukrw")
         self._metric.set_function(self.get)
 
     def get(self) -> Union[float, str]:
@@ -30,7 +30,7 @@ class Ukrw:
             res.raise_for_status()
             last = res.json().get("last")
             if last:
-                price = float(last)
+                price = float(last) / helpers.MICRO
         except requests.exceptions.RequestException:
             pass
         except ValueError:
