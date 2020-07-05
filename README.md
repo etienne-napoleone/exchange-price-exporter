@@ -26,10 +26,10 @@ Configuration is done through environment variables
 | `DEBUG`     | -       | Set to any value to enable debug logs            |
 | `PORT`      | `8000`  | Port to serve the prometheus exporter on         |
 | `INTERVAL`  | `10`    | Interval for fetching price sources              |
-| `DENOMS`    | `[]`    | Comma separated set of denoms to fetch price for |
+| `DENOMS`    | -       | Comma separated set of denoms to fetch price for |
 
-## Prices
+## Denoms
 
-The available prices are:
+The available prices denoms are:
 
 - ukrw
