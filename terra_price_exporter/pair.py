@@ -3,38 +3,38 @@ import logging
 from poche import Cache
 
 from terra_price_exporter import helpers
-from terra_price_exporter.exchange.baseexchange import BaseExchange
+
+from terra_price_exporter.exchange import exchanges
 
 log = logging.getLogger(__name__)
 
 
 class Pair:
     def __init__(
-        self, ttl: int, exchange: BaseExchange, currency: str, market: str
+        self, ttl: int, exchange_name: str, currency: str, market: str
     ) -> None:
-        self._cache = Cache(ttl)
-        self.exchange = exchange
+        self._cache = Cache(default_ttl=ttl)
+        self.exchange = exchanges[exchange_name]()
         self.currency = currency
         self.market = market
+        log.debug(f"new pair {self}")
 
-    def set(self) -> None:
-        price = self.exchange.get(currency=self.currency, market=self.market)
-        self._cache.set("price", price)
-        log.info(
-            f"set {self.currency}/{self.market} on {self.exchange} to {price}"
+    def __repr__(self) -> str:
+        return (
+            f"Pair({self._cache.default_ttl}, {self.exchange.name}, "
+            f"{self.currency}, {self.market})"
         )
 
-    def get(self) -> helpers.PROM_FLOAT:
-        price = helpers.NOT_A_NUMBER
+    def get_close(self) -> helpers.PROM_FLOAT:
+        close = helpers.NOT_A_NUMBER
         try:
-            price = self._cache.get("price")
-            log.debug(
-                f"retrieved price {price} from cache for "
-                f"{self.currency}/{self.market} on {self.exchange}"
-            )
+            close = self._cache.get("close")
         except KeyError:
-            log.debug(
-                "price is not yet fetched for "
-                f"{self.currency}/{self.market} on {self.exchange}"
-            )
-        return price
+            pass
+        log.debug(f"pair {self} got queried for close {close}")
+        return close
+
+    def fetch_close(self) -> None:
+        close = self.exchange.get(currency=self.currency, market=self.market,)
+        self._cache.set("close", close)
+        log.info(f"fetched {self} close for {close}")

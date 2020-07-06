@@ -45,14 +45,14 @@ class BaseExchange:
             log.error(f"response parse json from {res.url}")
         return {}
 
-    def currency_ticker(self, currency: str) -> str:
+    def _currency_ticker(self, currency: str) -> str:
         return (
             self.currency_ticker_override.get(currency, currency).upper()
             if self.uppercase_tickers
             else self.currency_ticker_override.get(currency, currency).lower()
         )
 
-    def market_ticker(self, market: str) -> str:
+    def _market_ticker(self, market: str) -> str:
         return (
             self.market_ticker_override.get(market, market).upper()
             if self.uppercase_tickers

@@ -18,8 +18,8 @@ class Bithumb(BaseExchange):
     def get(self, currency: str, market: str) -> helpers.PROM_FLOAT:
         price = (
             self._get(
-                currency=self.currency_ticker(currency),
-                market=self.market_ticker(market),
+                currency=self._currency_ticker(currency),
+                market=self._market_ticker(market),
             )
             .get("data", {})
             .get("closing_price")

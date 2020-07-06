@@ -32,6 +32,6 @@ class ExporterConfig:
 
 class ExporterPairConfig:
     def __init__(self, data: dict) -> None:
-        self.exchange = str(data["exchange"])
-        self.currency = str(data["currency"])
-        self.market = str(data["market"])
+        self.exchange = str(data["exchange"]).lower()
+        self.currency = str(data["currency"]).lower()
+        self.market = str(data["market"]).lower()

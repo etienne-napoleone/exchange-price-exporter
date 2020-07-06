@@ -24,8 +24,8 @@ def entrypoint(c: str) -> None:
         logging.getLogger("terra_price_exporter").setLevel(logging.DEBUG)
         logging.getLogger("terra_price_exporter").warning("debug logs enabled")
     updater = Updater(
-        interval=config.exporter.interval, denoms=["ukrw"]
-    )  # TODO rework Updater to get pairs
+        interval=config.exporter.interval, pairs=config.exporter.pairs
+    )
     start_http_server(port=config.server.port)
     log.info(f"starting terra_price_exporter v{__version__}")
     updater.start()

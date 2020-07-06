@@ -3,9 +3,8 @@ version: "3.7"
 services:
   terra-price-exporter:
     build: .
-    environment:
-      DENOMS: ukrw
-      DEBUG: enabled
+    volumes:
+      - ./config.toml:/app/config.toml
     ports:
       - 8000:8000
 

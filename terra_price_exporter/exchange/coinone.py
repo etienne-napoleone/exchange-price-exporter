@@ -19,7 +19,7 @@ class Coinone(BaseExchange):
         if market != "krw":
             return helpers.NOT_A_NUMBER  # coinone only support the krw market
         price = self._get(
-            currency=self.currency_ticker(currency), market=None
+            currency=self._currency_ticker(currency), market=None
         ).get("last")
         if price:
             try:
