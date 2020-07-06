@@ -2,7 +2,7 @@ from typing import List
 import logging
 import time
 
-from luna_price_exporter.price import prices
+from terra_price_exporter.price import prices
 
 log = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ class Updater:
                 else:
                     log.error(
                         f"denom {denom} is not available "
-                        "in luna_price_exporter"
+                        "in terra_price_exporter"
                     )
             log.debug(f"sleeping {self.interval}")
             time.sleep(self.interval)

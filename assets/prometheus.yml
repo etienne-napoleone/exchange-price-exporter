@@ -4,4 +4,4 @@ global:
 scrape_configs:
   - job_name: 'prices'
     static_configs:
-      - targets: ['luna-price-exporter:8000']
+      - targets: ['terra-price-exporter:8000']

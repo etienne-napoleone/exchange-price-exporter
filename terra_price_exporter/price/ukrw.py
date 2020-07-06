@@ -3,10 +3,10 @@ import logging
 # from prometheus_client import Gauge
 # import requests
 
-# from luna_price_exporter import helpers
-from luna_price_exporter.price.baseprice import BasePrice
-from luna_price_exporter.exchange import Coinone
-from luna_price_exporter.exchange import Bithumb
+# from terra_price_exporter import helpers
+from terra_price_exporter.price.baseprice import BasePrice
+from terra_price_exporter.exchange import Coinone
+from terra_price_exporter.exchange import Bithumb
 
 log = logging.getLogger(__name__)
 

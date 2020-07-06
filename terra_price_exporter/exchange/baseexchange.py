@@ -5,7 +5,7 @@ import logging
 
 import requests
 
-from luna_price_exporter import helpers
+from terra_price_exporter import helpers
 
 log = logging.getLogger(__name__)
 

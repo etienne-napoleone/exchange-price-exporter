@@ -5,8 +5,8 @@ from prometheus_client import Gauge
 
 import poche
 
-from luna_price_exporter.exchange.baseexchange import BaseExchange
-from luna_price_exporter.pair import Pair
+from terra_price_exporter.exchange.baseexchange import BaseExchange
+from terra_price_exporter.pair import Pair
 
 log = logging.getLogger(__name__)
 

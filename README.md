@@ -1,5 +1,5 @@
-# luna_price_exporter
-LUNA price prometheus exporter 
+# terra_price_exporter
+Terra LUNA price prometheus exporter 
 
 ## Usage
 
@@ -8,13 +8,13 @@ LUNA price prometheus exporter
 Build the image
 
 ```
-docker build -t luna_price_exporter .
+docker build -t terra_price_exporter .
 ```
 
 Run it
 
 ```
-docker run luna_price_exporter
+docker run terra_price_exporter
 ```
 
 ## Configuration

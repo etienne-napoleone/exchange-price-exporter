@@ -1,4 +1,4 @@
-from luna_price_exporter import __version__
+from terra_price_exporter import __version__
 
 
 def test_version():

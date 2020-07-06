@@ -1,7 +1,7 @@
 import logging
 
-from luna_price_exporter import helpers
-from luna_price_exporter.exchange.baseexchange import BaseExchange
+from terra_price_exporter import helpers
+from terra_price_exporter.exchange.baseexchange import BaseExchange
 
 log = logging.getLogger(__name__)
 
