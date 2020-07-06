@@ -64,3 +64,10 @@ Available exchanges:
 
 - [Coinone](https://coinone.co.kr/) - `coinone`
 - [Bithumb global](https://bithumb.com) - `bithumb`
+
+## Others
+
+In the assets folder, you can find some useful files such as:
+
+- A grafana dashboard ready to import
+- a prometheus example target config

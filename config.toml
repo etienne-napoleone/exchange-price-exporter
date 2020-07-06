@@ -13,6 +13,16 @@ currency="luna"
 market="krw"
 
 [[exporter.pairs]]
+exchange="coinone"
+currency="btc"
+market="krw"
+
+[[exporter.pairs]]
 exchange="bithumb"
 currency="luna"
+market="krw"
+
+[[exporter.pairs]]
+exchange="bithumb"
+currency="btc"
 market="krw"
