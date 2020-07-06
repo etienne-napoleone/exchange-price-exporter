@@ -15,15 +15,29 @@ class Coinone(BaseExchange):
             uppercase_tickers=True,
         )
 
-    def get(self, currency: str, market: str) -> helpers.PROM_FLOAT:
+    def get(
+        self, currency: str, market: str, olhcv: str
+    ) -> helpers.PROM_FLOAT:
+        params = dict(
+            currency=self._currency_ticker(currency),
+            market=self._market_ticker(market),
+        )
         if market != "krw":
             return helpers.NOT_A_NUMBER  # coinone only support the krw market
-        price = self._get(
-            currency=self._currency_ticker(currency), market=None
-        ).get("last")
-        if price:
+        data = self._get(**params)
+        if olhcv == "open":
+            res = data.get("first")
+        elif olhcv == "low":
+            res = data.get("low")
+        elif olhcv == "high":
+            res = data.get("high")
+        elif olhcv == "close":
+            res = data.get("last")
+        elif olhcv == "volume":
+            res = data.get("volume")
+        if res:
             try:
-                return float(price) * helpers.MICRO
+                return float(res)
             except ValueError:
                 pass
         return helpers.NOT_A_NUMBER

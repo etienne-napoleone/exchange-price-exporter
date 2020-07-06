@@ -59,5 +59,7 @@ class BaseExchange:
             else self.market_ticker_override.get(market, market).lower()
         )
 
-    def get(self, currency: str, market: str) -> helpers.PROM_FLOAT:
+    def get(
+        self, currency: str, market: str, olhcv: str
+    ) -> helpers.PROM_FLOAT:
         raise NotImplementedError

@@ -15,18 +15,27 @@ class Bithumb(BaseExchange):
             uppercase_tickers=True,
         )
 
-    def get(self, currency: str, market: str) -> helpers.PROM_FLOAT:
-        price = (
-            self._get(
-                currency=self._currency_ticker(currency),
-                market=self._market_ticker(market),
-            )
-            .get("data", {})
-            .get("closing_price")
+    def get(
+        self, currency: str, market: str, olhcv: str
+    ) -> helpers.PROM_FLOAT:
+        params = dict(
+            currency=self._currency_ticker(currency),
+            market=self._market_ticker(market),
         )
-        if price:
+        data = self._get(**params).get("data", {})
+        if olhcv == "open":
+            res = data.get("opening_price")
+        elif olhcv == "low":
+            res = data.get("min_price")
+        elif olhcv == "high":
+            res = data.get("max_price")
+        elif olhcv == "close":
+            res = data.get("closing_price")
+        elif olhcv == "volume":
+            res = data.get("units_traded")
+        if res:
             try:
-                return float(price) * helpers.MICRO
+                return float(res)
             except ValueError:
                 pass
         return helpers.NOT_A_NUMBER

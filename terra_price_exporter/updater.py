@@ -10,6 +10,8 @@ from terra_price_exporter.pair import Pair
 
 log = logging.getLogger(__name__)
 
+OLHCV = ["open", "low", "high", "close", "volume"]
+
 
 class Updater:
     def __init__(self, interval: int, pairs: List[ExporterPairConfig]) -> None:
@@ -32,18 +34,20 @@ class Updater:
             for pair in pairs
         ]
         for pair in self.pairs:
-            self.metrics["candle"].labels(
-                exchange=pair.exchange.name,
-                currency=pair.currency,
-                market=pair.market,
-                olhcv="close",
-            ).set_function(pair.get_close)
-            log.debug(f"binded metrics to pair {pair}")
+            for olhcv in OLHCV:
+                self.metrics["candle"].labels(
+                    exchange=pair.exchange.name,
+                    currency=pair.currency,
+                    market=pair.market,
+                    olhcv=olhcv,
+                ).set_function(pair.get_function(olhcv))
+                log.debug(f"binded metrics to pair {pair} - {olhcv}")
 
     def start(self) -> None:
         while True:
             for pair in self.pairs:
-                log.debug(f"fetching pair {pair}")
-                pair.fetch_close()
+                for olhcv in OLHCV:
+                    log.debug(f"fetching pair pair {pair} - {olhcv}")
+                    pair.fetch(olhcv)
             log.debug(f"sleeping {self.interval}")
             time.sleep(self.interval)

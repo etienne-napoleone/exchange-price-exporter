@@ -1,9 +1,9 @@
+from typing import Callable
 import logging
 
 from poche import Cache
 
 from terra_price_exporter import helpers
-
 from terra_price_exporter.exchange import exchanges
 
 log = logging.getLogger(__name__)
@@ -25,16 +25,64 @@ class Pair:
             f"{self.currency}, {self.market})"
         )
 
-    def get_close(self) -> helpers.PROM_FLOAT:
-        close = helpers.NOT_A_NUMBER
+    def get_open(self) -> helpers.PROM_FLOAT:
+        res = helpers.NOT_A_NUMBER
         try:
-            close = self._cache.get("close")
+            res = self._cache.get("open")
         except KeyError:
             pass
-        log.debug(f"pair {self} got queried for close {close}")
-        return close
+        log.debug(f"pair {self} got queried for open {res}")
+        return res
 
-    def fetch_close(self) -> None:
-        close = self.exchange.get(currency=self.currency, market=self.market,)
-        self._cache.set("close", close)
-        log.info(f"fetched {self} close for {close}")
+    def get_low(self) -> helpers.PROM_FLOAT:
+        res = helpers.NOT_A_NUMBER
+        try:
+            res = self._cache.get("low")
+        except KeyError:
+            pass
+        log.debug(f"pair {self} got queried for low {res}")
+        return res
+
+    def get_high(self) -> helpers.PROM_FLOAT:
+        res = helpers.NOT_A_NUMBER
+        try:
+            res = self._cache.get("high")
+        except KeyError:
+            pass
+        log.debug(f"pair {self} got queried for high {res}")
+        return res
+
+    def get_close(self) -> helpers.PROM_FLOAT:
+        res = helpers.NOT_A_NUMBER
+        try:
+            res = self._cache.get("close")
+        except KeyError:
+            pass
+        log.debug(f"pair {self} got queried for close {res}")
+        return res
+
+    def get_volume(self) -> helpers.PROM_FLOAT:
+        res = helpers.NOT_A_NUMBER
+        try:
+            res = self._cache.get("volume")
+        except KeyError:
+            pass
+        log.debug(f"pair {self} got queried for volume {res}")
+        return res
+
+    def get_function(self, olhcv: str) -> Callable[[], helpers.PROM_FLOAT]:
+        functions = dict(
+            open=self.get_open,
+            low=self.get_low,
+            high=self.get_high,
+            close=self.get_close,
+            volume=self.get_volume,
+        )
+        return functions[olhcv]
+
+    def fetch(self, olhcv: str) -> None:
+        res = self.exchange.get(
+            currency=self.currency, market=self.market, olhcv=olhcv
+        )
+        self._cache.set(olhcv, res)
+        log.info(f"fetched {self} {olhcv} for {res}")
