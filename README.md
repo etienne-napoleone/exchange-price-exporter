@@ -1,6 +1,8 @@
 # exchange_price_exporter
 
-Terra LUNA price prometheus exporter 
+![CI](https://github.com/setten-io/exchange_price_exporter/workflows/CI/badge.svg)
+
+Prometheus blockchain exchange price exporter
 
 ## Usage
 
