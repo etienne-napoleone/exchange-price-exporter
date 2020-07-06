@@ -11,5 +11,6 @@ COPY pyproject.toml pyproject.toml
 RUN poetry install -n --no-dev
 
 COPY exchange_price_exporter exchange_price_exporter
+COPY config.toml config.toml
 
-ENTRYPOINT [ "poetry", "run", "exchange-price-exporter"]
+ENTRYPOINT [ "poetry", "run", "exchange-price-exporter" ]

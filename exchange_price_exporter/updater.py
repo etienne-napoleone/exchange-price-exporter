@@ -26,7 +26,7 @@ class Updater:
         log.debug(f"created metrics {self.metrics}")
         self.pairs = [
             Pair(
-                ttl=self.interval + 2,
+                ttl=self.interval * 2,
                 exchange_name=pair.exchange,
                 currency=pair.currency,
                 market=pair.market,
