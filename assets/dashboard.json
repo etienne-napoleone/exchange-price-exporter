@@ -52,7 +52,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1594052518963,
+  "iteration": 1594052518966,
   "links": [],
   "panels": [
     {
@@ -206,14 +206,14 @@
         {
           "expr": "sum(candle{olhcv=\"volume\", currency=\"$currency\",market=\"$market\"})",
           "instant": false,
-          "legendFormat": "average volume",
+          "legendFormat": "current volume",
           "refId": "B"
         }
       ],
       "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Total volume for $currency over this interval",
+      "title": "Curent volume for $currency",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -223,7 +223,7 @@
           "value": "null"
         }
       ],
-      "valueName": "total"
+      "valueName": "current"
     },
     {
       "collapsed": false,
@@ -487,5 +487,5 @@
   "timezone": "",
   "title": "Pairs data",
   "uid": "ojbbiYGGk",
-  "version": 17
+  "version": 18
 }
