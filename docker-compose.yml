@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  terra-price-exporter:
+  exchange-price-exporter:
     build: .
     volumes:
       - ./config.toml:/app/config.toml

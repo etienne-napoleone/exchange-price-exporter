@@ -3,8 +3,8 @@ import logging
 
 from poche import Cache
 
-from terra_price_exporter import helpers
-from terra_price_exporter.exchange import exchanges
+from exchange_price_exporter import helpers
+from exchange_price_exporter import exchanges
 
 log = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ class Pair:
         self, ttl: int, exchange_name: str, currency: str, market: str
     ) -> None:
         self._cache = Cache(default_ttl=ttl)
-        self.exchange = exchanges[exchange_name]()
+        self.exchange = exchanges.get_by_name(exchange_name)()
         self.currency = currency
         self.market = market
         log.debug(f"new pair {self}")

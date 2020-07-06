@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "terra_price_exporter"
+name = "exchange_price_exporter"
 version = "0.1.0"
 description = ""
 authors = ["etienne-napoleone <etienne.napoleone@gmail.com>"]
@@ -20,7 +20,7 @@ mypy = "^0.782"
 coverage = "^5.1"
 
 [tool.poetry.scripts]
-terra-price-exporter = 'terra_price_exporter.cli:entrypoint'
+exchange-price-exporter = 'exchange_price_exporter.cli:entrypoint'
 
 [tool.black]
 line-length = 79

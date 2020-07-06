@@ -1,37 +1,64 @@
-# terra_price_exporter
+# exchange_price_exporter
+
 Terra LUNA price prometheus exporter 
 
 ## Usage
+
+```
+Usage: exchange-price-exporter [OPTIONS]
+
+  Exchange price exporter.
+
+Options:
+  -c FILE    TOML config file.
+  --version  Show the version and exit.
+  --help     Show this message and exit.
+```
 
 ### Docker
 
 Build the image
 
 ```
-docker build -t terra_price_exporter .
+docker build -t exchange_price_exporter .
 ```
 
 Run it
 
 ```
-docker run terra_price_exporter
+docker run exchange_price_exporter
 ```
 
 ## Configuration
 
-Configuration is done through environment variables
+Configured via a toml, use `./config.toml` if the `-c` flag is not set
 
-| Environment | Default | Description                                      |
-|-------------|---------|--------------------------------------------------|
-| `DEBUG`     | -       | Set to any value to enable debug logs            |
-| `PORT`      | `8000`  | Port to serve the prometheus exporter on         |
-| `INTERVAL`  | `10`    | Interval for fetching price sources              |
-| `DENOMS`    | -       | Comma separated set of denoms to fetch price for |
+```toml
+[server]
+port=8000  # int, default: 8000
 
-## Denoms
+[log]
+debug=true  # bool, default: false
 
-Available price denoms
+[exporter]
+interval=10  # int, default: 10
 
-| Name | Exported metric   | `exchange` (tag)    |
-|------|-------------------|---------------------|
-| ukrw | `luna_price_ukrw` | `coinone` `bithumb` |
+[[exporter.pairs]]
+exchange="coinone"
+currency="luna"
+market="krw"
+
+[[exporter.pairs]]
+exchange="bithumb"
+currency="luna"
+market="krw"
+```
+
+If an exporter pair doesn't exist on the exchange, all olhcv data will be `NaN`.
+
+## Exchanges
+
+Available exchanges:
+
+- [Coinone](https://coinone.co.kr/) - `coinone`
+- [Bithumb global](https://bithumb.com) - `bithumb`

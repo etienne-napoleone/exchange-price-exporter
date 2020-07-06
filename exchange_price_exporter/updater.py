@@ -5,8 +5,8 @@ import time
 
 from prometheus_client import Gauge
 
-from terra_price_exporter.config import ExporterPairConfig
-from terra_price_exporter.pair import Pair
+from exchange_price_exporter.config import ExporterPairConfig
+from exchange_price_exporter.pair import Pair
 
 log = logging.getLogger(__name__)
 
