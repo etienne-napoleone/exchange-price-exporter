@@ -7,12 +7,12 @@ debug=true
 [exporter]
 interval=10
 
-[[exporter.pair]]
+[[exporter.pairs]]
 exchange="coinone"
 currency="luna"
 market="krw"
 
-[[exporter.pair]]
+[[exporter.pairs]]
 exchange="bithumb"
 currency="luna"
 market="krw"
