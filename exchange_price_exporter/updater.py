@@ -10,8 +10,6 @@ from exchange_price_exporter.pair import Pair
 
 log = logging.getLogger(__name__)
 
-OLHCV = ["open", "low", "high", "close", "volume"]
-
 
 class Updater:
     def __init__(self, interval: int, pairs: List[ExporterPairConfig]) -> None:
@@ -30,24 +28,15 @@ class Updater:
                 exchange_name=pair.exchange,
                 currency=pair.currency,
                 market=pair.market,
+                gauge=self.metrics["candle"],
             )
             for pair in pairs
         ]
-        for pair in self.pairs:
-            for olhcv in OLHCV:
-                self.metrics["candle"].labels(
-                    exchange=pair.exchange.name,
-                    currency=pair.currency,
-                    market=pair.market,
-                    olhcv=olhcv,
-                ).set_function(pair.get_function(olhcv))
-                log.debug(f"binded metrics to pair {pair} - {olhcv}")
 
     def start(self) -> None:
         while True:
             for pair in self.pairs:
-                for olhcv in OLHCV:
-                    log.debug(f"fetching pair pair {pair} - {olhcv}")
-                    pair.fetch(olhcv)
+                log.debug(f"fetching candle for pair {pair}")
+                pair.get()
             log.debug(f"sleeping {self.interval}")
             time.sleep(self.interval)

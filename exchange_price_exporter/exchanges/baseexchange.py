@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from typing import Dict
 from typing import Optional
 import json
@@ -5,12 +6,12 @@ import logging
 
 import requests
 
-from exchange_price_exporter import helpers
+from exchange_price_exporter.candle import Candle
 
 log = logging.getLogger(__name__)
 
 
-class BaseExchange:
+class BaseExchange(ABC):
     def __init__(
         self,
         name: str,
@@ -40,9 +41,9 @@ class BaseExchange:
             res.raise_for_status()
             return res.json()
         except requests.exceptions.RequestException:
-            log.error(f"could not GET from {res.url}")
+            log.error(f"could not GET from {url}")
         except json.decoder.JSONDecodeError:
-            log.error(f"response parse json from {res.url}")
+            log.error(f"could not parse json from {url}")
         return {}
 
     def _currency_ticker(self, currency: str) -> str:
@@ -59,7 +60,6 @@ class BaseExchange:
             else self.market_ticker_override.get(market, market).lower()
         )
 
-    def get(
-        self, currency: str, market: str, olhcv: str
-    ) -> helpers.PROM_FLOAT:
-        raise NotImplementedError
+    @abstractmethod
+    def get(self, currency: str, market: str) -> Candle:
+        "Get candle data from excahnge and return a `Candle`"

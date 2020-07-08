@@ -1,6 +1,6 @@
 import logging
 
-from exchange_price_exporter import helpers
+from exchange_price_exporter.candle import Candle
 from exchange_price_exporter.exchanges.baseexchange import BaseExchange
 
 log = logging.getLogger(__name__)
@@ -15,27 +15,16 @@ class Bithumb(BaseExchange):
             uppercase_tickers=True,
         )
 
-    def get(
-        self, currency: str, market: str, olhcv: str
-    ) -> helpers.PROM_FLOAT:
+    def get(self, currency: str, market: str) -> Candle:
         params = dict(
             currency=self._currency_ticker(currency),
             market=self._market_ticker(market),
         )
         data = self._get(**params).get("data", {})
-        if olhcv == "open":
-            res = data.get("opening_price")
-        elif olhcv == "low":
-            res = data.get("min_price")
-        elif olhcv == "high":
-            res = data.get("max_price")
-        elif olhcv == "close":
-            res = data.get("closing_price")
-        elif olhcv == "volume":
-            res = data.get("units_traded")
-        if res:
-            try:
-                return float(res)
-            except ValueError:
-                pass
-        return helpers.NOT_A_NUMBER
+        return Candle(
+            open=data.get("opening_price"),
+            low=data.get("min_price"),
+            high=data.get("max_price"),
+            close=data.get("closing_price"),
+            volume=data.get("units_traded"),
+        )
