@@ -1,6 +1,7 @@
 import logging
 
 from exchange_price_exporter import helpers
+from exchange_price_exporter.candle import Candle
 from exchange_price_exporter.exchanges.baseexchange import BaseExchange
 
 log = logging.getLogger(__name__)
@@ -15,9 +16,7 @@ class Coinone(BaseExchange):
             uppercase_tickers=True,
         )
 
-    def get(
-        self, currency: str, market: str, olhcv: str
-    ) -> helpers.PROM_FLOAT:
+    def get(self, currency: str, market: str) -> helpers.PROM_FLOAT:
         params = dict(
             currency=self._currency_ticker(currency),
             market=self._market_ticker(market),
@@ -25,19 +24,10 @@ class Coinone(BaseExchange):
         if market != "krw":
             return helpers.NOT_A_NUMBER  # coinone only support the krw market
         data = self._get(**params)
-        if olhcv == "open":
-            res = data.get("first")
-        elif olhcv == "low":
-            res = data.get("low")
-        elif olhcv == "high":
-            res = data.get("high")
-        elif olhcv == "close":
-            res = data.get("last")
-        elif olhcv == "volume":
-            res = data.get("volume")
-        if res:
-            try:
-                return float(res)
-            except ValueError:
-                pass
-        return helpers.NOT_A_NUMBER
+        return Candle(
+            open=data.get("first"),
+            low=data.get("low"),
+            high=data.get("high"),
+            close=data.get("last"),
+            volume=data.get("volume"),
+        )
