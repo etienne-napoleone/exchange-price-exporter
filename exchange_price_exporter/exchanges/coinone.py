@@ -12,24 +12,33 @@ class Coinone(BaseExchange):
         BaseExchange.__init__(
             self,
             name="coinone",
-            url_template="https://api.coinone.co.kr/ticker/?currency={}",
+            url_template=(
+                "https://tb.coinone.co.kr/api/v1/chart/olhc"
+                "/?site=coinone{}&type=1m"
+            ),
             uppercase_tickers=True,
         )
 
     def get(self, currency: str, market: str) -> Candle:
-        params = dict(
-            currency=self._currency_ticker(currency),
-            market=self._market_ticker(market),
-        )
         if market != "krw":
+            log.warning("coinone only supports the krw market")
             return Candle(
                 **helpers.EMPTY_CANDLE
             )  # coinone only support the krw market
-        data = self._get(**params)
-        return Candle(
-            open=data.get("first"),
-            low=data.get("low"),
-            high=data.get("high"),
-            close=data.get("last"),
-            volume=data.get("volume"),
-        )
+        data = self._get(
+            currency=self._currency_ticker(currency)
+            if currency != "btc"
+            else "",
+            market=self._currency_ticker(market),
+        ).get("data")
+        if data:
+            data_element = data.pop()
+            return Candle(
+                open=data_element.get("Open"),
+                low=data_element.get("Low"),
+                high=data_element.get("High"),
+                close=data_element.get("Close"),
+                volume=data_element.get("Volume"),
+            )
+        else:
+            return Candle(**helpers.EMPTY_CANDLE)

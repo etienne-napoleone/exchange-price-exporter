@@ -19,7 +19,7 @@ class BaseExchange(ABC):
         uppercase_tickers: bool,
         currency_ticker_override: Dict[str, str] = {},
         market_ticker_override: Dict[str, str] = {},
-        request_timeout: int = 1,
+        request_timeout: int = 2,
     ) -> None:
         self.name = name.lower()
         self.url_template = url_template
@@ -40,8 +40,8 @@ class BaseExchange(ABC):
             res = requests.get(url, timeout=self.request_timeout,)
             res.raise_for_status()
             return res.json()
-        except requests.exceptions.RequestException:
-            log.error(f"could not GET from {url}")
+        except requests.exceptions.RequestException as e:
+            log.error(f"could not GET from {url}, {e}")
         except json.decoder.JSONDecodeError:
             log.error(f"could not parse json from {url}")
         return {}
