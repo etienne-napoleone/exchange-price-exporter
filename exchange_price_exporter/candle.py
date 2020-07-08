@@ -14,7 +14,7 @@ class Candle:
         for key, item in olhcv.items():
             try:
                 setattr(self, key, float(item))
-            except ValueError:
+            except (ValueError, TypeError):
                 setattr(self, key, helpers.NOT_A_NUMBER)
 
     def __repr__(self) -> str:

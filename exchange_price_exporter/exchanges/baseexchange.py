@@ -41,9 +41,9 @@ class BaseExchange(ABC):
             res.raise_for_status()
             return res.json()
         except requests.exceptions.RequestException:
-            log.error(f"could not GET from {res.url}")
+            log.error(f"could not GET from {url}")
         except json.decoder.JSONDecodeError:
-            log.error(f"response parse json from {res.url}")
+            log.error(f"response parse json from {url}")
         return {}
 
     def _currency_ticker(self, currency: str) -> str:
