@@ -43,7 +43,7 @@ class BaseExchange(ABC):
         except requests.exceptions.RequestException:
             log.error(f"could not GET from {url}")
         except json.decoder.JSONDecodeError:
-            log.error(f"response parse json from {url}")
+            log.error(f"could not parse json from {url}")
         return {}
 
     def _currency_ticker(self, currency: str) -> str:
@@ -61,5 +61,5 @@ class BaseExchange(ABC):
         )
 
     @abstractmethod
-    def get(self, currency: str, market: str, olhcv: str) -> Candle:
+    def get(self, currency: str, market: str) -> Candle:
         "Get candle data from excahnge and return a `Candle`"

@@ -1,6 +1,5 @@
 import logging
 
-from exchange_price_exporter import helpers
 from exchange_price_exporter.candle import Candle
 from exchange_price_exporter.exchanges.baseexchange import BaseExchange
 
@@ -16,7 +15,7 @@ class Bithumb(BaseExchange):
             uppercase_tickers=True,
         )
 
-    def get(self, currency: str, market: str) -> helpers.PROM_FLOAT:
+    def get(self, currency: str, market: str) -> Candle:
         params = dict(
             currency=self._currency_ticker(currency),
             market=self._market_ticker(market),

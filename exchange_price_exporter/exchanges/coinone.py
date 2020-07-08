@@ -16,13 +16,15 @@ class Coinone(BaseExchange):
             uppercase_tickers=True,
         )
 
-    def get(self, currency: str, market: str) -> helpers.PROM_FLOAT:
+    def get(self, currency: str, market: str) -> Candle:
         params = dict(
             currency=self._currency_ticker(currency),
             market=self._market_ticker(market),
         )
         if market != "krw":
-            return helpers.NOT_A_NUMBER  # coinone only support the krw market
+            return Candle(
+                **helpers.EMPTY_CANDLE
+            )  # coinone only support the krw market
         data = self._get(**params)
         return Candle(
             open=data.get("first"),
