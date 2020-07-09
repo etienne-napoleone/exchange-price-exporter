@@ -11,6 +11,7 @@ poche = "^0.3.0"
 requests = "^2.24.0"
 toml = "^0.10.1"
 click = "^7.1.2"
+schedule = "^0.6.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

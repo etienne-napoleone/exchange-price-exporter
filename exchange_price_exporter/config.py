@@ -24,7 +24,9 @@ class LogConfig:
 
 class ExporterConfig:
     def __init__(self, data: dict) -> None:
-        self.interval = int(data.get("interval", 10))
+        self.interval = int(data.get("interval", 1))
+        self.start_at_second = int(data.get("start_at_second", 30))
+        self.threads = int(data.get("threads", 8))
         self.pairs = [
             ExporterPairConfig(pair) for pair in list(data.get("pairs", {}))
         ]
