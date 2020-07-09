@@ -1,2 +1,0 @@
-def entrypoint() -> None:
-    pass

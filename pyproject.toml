@@ -1,11 +1,17 @@
 [tool.poetry]
-name = "price_exporter"
+name = "exchange_price_exporter"
 version = "0.1.0"
 description = ""
 authors = ["etienne-napoleone <etienne.napoleone@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
+prometheus_client = "^0.8.0"
+poche = "^0.3.0"
+requests = "^2.24.0"
+toml = "^0.10.1"
+click = "^7.1.2"
+schedule = "^0.6.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -15,7 +21,7 @@ mypy = "^0.782"
 coverage = "^5.1"
 
 [tool.poetry.scripts]
-price-exporter = 'price_exporter.cli:entrypoint'
+exchange-price-exporter = 'exchange_price_exporter.cli:entrypoint'
 
 [tool.black]
 line-length = 79
