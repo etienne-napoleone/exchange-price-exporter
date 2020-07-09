@@ -20,18 +20,14 @@ Options:
   --help     Show this message and exit.
 ```
 
+## Installation
+
 ### Docker
 
-Build the image
+A docker image is available on docker hub
 
 ```
-docker build -t exchange_price_exporter .
-```
-
-Run it
-
-```
-docker run exchange_price_exporter
+docker run -v myconfig.toml:/app/config.toml settenio/exchange-price-exporter:<VERSION>
 ```
 
 ## Configuration
