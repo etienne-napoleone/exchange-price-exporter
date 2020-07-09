@@ -27,7 +27,10 @@ def entrypoint(c: str) -> None:
             "debug logs enabled"
         )
     updater = Updater(
-        interval=config.exporter.interval, pairs=config.exporter.pairs
+        interval=config.exporter.interval,
+        start_at_second=config.exporter.start_at_second,
+        pairs=config.exporter.pairs,
+        threads=config.exporter.threads,
     )
     start_http_server(port=config.server.port)
     log.info(f"starting exchange_price_exporter v{__version__}")

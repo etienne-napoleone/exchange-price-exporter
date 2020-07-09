@@ -43,7 +43,9 @@ port=8000  # int, default: 8000
 debug=true  # bool, default: false
 
 [exporter]
-interval=10  # int, default: 10
+interval=1  # int, default: 1 (minutes)
+start_at_second=30  # int, default: 30 (will run at 01:30, 02:30, 03:30, etc.)
+threads=8  # int, default: 8
 
 [[exporter.pairs]]
 exchange="coinone"

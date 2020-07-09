@@ -1,12 +1,3 @@
-[server]
-port=8000
-
-[log]
-debug=true
-
-[exporter]
-interval=60
-
 [[exporter.pairs]]
 exchange="coinone"
 currency="luna"
