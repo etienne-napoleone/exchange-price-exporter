@@ -26,7 +26,7 @@ Options:
 
 A docker image is available on docker hub.
 
-The default location for the config file is under `/app/.config/toml`.
+The default location for the config file is under `/app/config.toml`.
 
 ```
 docker run -v myconfig.toml:/app/config.toml settenio/exchange-price-exporter:<VERSION>
