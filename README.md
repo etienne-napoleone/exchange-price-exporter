@@ -61,6 +61,26 @@ market="krw"
 
 If an exporter pair doesn't exist on the exchange, all olhcv data will be `NaN`.
 
+## Exported metrics
+
+## Gauge `candle`
+
+Example:
+
+```node
+candle{currency="luna",exchange="bithumb",market="krw",olhcv="close"} 4620.6
+```
+
+### Labels
+
+| Name       | Values                                               |
+|------------|------------------------------------------------------|
+| `currency` | Pair currency for this candle                        |
+| `exchange` | Exchange for this candle                             |
+| `market`   | Pair market for this candle                          |
+| `market`   | Pair market for this candle                          |
+| `olhcv`    | one of candle's `open` `low` `high` `close` `volume` |
+
 ## Exchanges
 
 Available exchanges:
