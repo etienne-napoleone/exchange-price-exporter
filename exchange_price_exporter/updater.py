@@ -61,7 +61,8 @@ class Updater:
             schedule.every(self.interval).minutes.at(":30").do(
                 self.queue.put, pair.get
             )
-        map(lambda x: x.start(), self.threads)  # type: ignore
+        for thread in self.threads:
+            thread.start()
         while True:
             schedule.run_pending()
             time.sleep(1)
