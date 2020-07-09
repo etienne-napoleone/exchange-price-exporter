@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.7-alpine as builder
 
 WORKDIR /app
 
@@ -11,6 +11,16 @@ COPY pyproject.toml pyproject.toml
 RUN poetry install -n --no-dev
 
 COPY exchange_price_exporter exchange_price_exporter
-COPY config.toml config.toml
 
-ENTRYPOINT [ "poetry", "run", "exchange-price-exporter" ]
+RUN poetry build -n -f wheel
+
+FROM python:3.7-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/dist /app
+COPY config.toml /app/config.toml
+
+RUN pip install exchange_price_exporter-*.whl
+
+ENTRYPOINT [ "exchange-price-exporter" ]
