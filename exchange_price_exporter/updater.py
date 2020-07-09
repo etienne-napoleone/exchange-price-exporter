@@ -22,7 +22,7 @@ class Updater:
         pairs: List[ExporterPairConfig],
         threads: int,
     ) -> None:
-        self.queue = queue.Queue()
+        self.queue: queue.Queue = queue.Queue()
         self.interval = interval
         self.threads = [
             threading.Thread(target=self.worker) for _ in range(threads)
@@ -46,7 +46,7 @@ class Updater:
         ]
         log.debug(f"created metrics {self.metrics}")
 
-    def worker(self):
+    def worker(self) -> None:
         while 1:
             log.debug("worker waiting for a job")
             function = self.queue.get()
@@ -61,7 +61,7 @@ class Updater:
             schedule.every(self.interval).minutes.at(":30").do(
                 self.queue.put, pair.get
             )
-        [thread.start() for thread in self.threads]
+        map(lambda x: x.start(), self.threads)  # type: ignore
         while True:
             schedule.run_pending()
             time.sleep(1)
