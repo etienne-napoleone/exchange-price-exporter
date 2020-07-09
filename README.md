@@ -1,8 +1,8 @@
-# exchange_price_exporter
+# exchange-price-exporter
 
-<a href="../../actions"><img alt="build status" src="https://github.com/setten-io/exchange_price_exporter/workflows/build/badge.svg"></a>
+<a href="../../actions"><img alt="build status" src="https://github.com/setten-io/exchange-price-exporter/workflows/build/badge.svg"></a>
 <a href="https://hub.docker.com/repository/docker/settenio/exchange-price-exporter"><img alt="Docker Image version" src="https://img.shields.io/docker/v/settenio/exchange-price-exporter?sort=semver"></a>
-<a href="LICENSE"><img alt="Licence" src="https://img.shields.io/github/license/setten-io/exchange_price_exporter"></a>
+<a href="LICENSE"><img alt="Licence" src="https://img.shields.io/github/license/setten-io/exchange-price-exporter"></a>
 <a href="https://github.com/psf/black"><img alt="Codestyle: black" src="https://img.shields.io/badge/codestyle-black-black"></a>
 
 Prometheus blockchain exchange price exporter
