@@ -4,7 +4,7 @@ currency="luna"
 market="krw"
 
 [[exporter.pairs]]
-exchange="coinone"
+exchange="oinone"
 currency="btc"
 market="krw"
 

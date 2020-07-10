@@ -22,13 +22,9 @@ class Updater:
         pairs: List[ExporterPairConfig],
         threads: int,
     ) -> None:
-        self.queue: queue.Queue = queue.Queue()
+        self.queue = queue.Queue()
         self.interval = interval
-        self.threads: List[threading.Thread] = []
-        for _ in range(threads):
-            thread = threading.Thread(target=self.worker)
-            thread.setDaemon(True)
-            self.threads.append(thread)
+        self.threads = self.get_threads(threads)
         self.metrics = dict(
             candle=Gauge(
                 name="candle",
@@ -36,17 +32,36 @@ class Updater:
                 labelnames=["exchange", "currency", "market", "olhcv"],
             )
         )
-        self.pairs = [
-            Pair(
-                ttl=self.interval * 60 * 2,
-                exchange_name=pair.exchange,
-                currency=pair.currency,
-                market=pair.market,
-                gauge=self.metrics["candle"],
-            )
-            for pair in pairs
-        ]
+        self.pairs = self.get_pairs(pairs)
+
         log.debug(f"created metrics {self.metrics}")
+
+    def get_pairs(self, pairs: List[ExporterPairConfig]) -> List[Pair]:
+        valid_pairs = []
+        for pair in pairs:
+            try:
+                valid_pairs.append(
+                    Pair(
+                        ttl=self.interval * 60 * 2,
+                        exchange_name=pair.exchange,
+                        currency=pair.currency,
+                        market=pair.market,
+                        gauge=self.metrics["candle"],
+                    )
+                )
+            except KeyError:
+                log.warning(
+                    f"ignored pair with unsuported exchange '{pair.exchange}'"
+                )
+        return valid_pairs
+
+    def get_threads(self, count: int) -> List[threading.Thread]:
+        threads = []
+        for _ in range(count):
+            thread = threading.Thread(target=self.worker)
+            thread.setDaemon(True)
+            threads.append(thread)
+        return threads
 
     def worker(self) -> None:
         while 1:
