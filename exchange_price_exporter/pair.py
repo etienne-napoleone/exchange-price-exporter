@@ -21,7 +21,7 @@ class Pair:
     ) -> None:
         self.cache = Cache(default_ttl=ttl)
         self.gauge = gauge
-        self.exchange = exchanges.by_name[exchange_name]()
+        self.exchange = exchanges.integrations[exchange_name]()
         self.currency = currency
         self.market = market
         log.debug(f"new pair {self}")

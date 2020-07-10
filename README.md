@@ -56,7 +56,7 @@ market="krw"
 [[exporter.pairs]]
 exchange="bithumb"
 currency="luna"
-market="krw"
+market="btc"
 ```
 
 If an exporter pair doesn't exist on the exchange, all olhcv data will be `NaN`.
@@ -87,6 +87,7 @@ Available exchanges:
 
 - [Coinone](https://coinone.co.kr/) - `coinone`
 - [Bithumb global](https://bithumb.com) - `bithumb`
+- [Kucoin](https://www.kucoin.com/) - `kucoin`
 
 ## Others
 

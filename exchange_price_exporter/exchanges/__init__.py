@@ -1,4 +1,5 @@
 from exchange_price_exporter.exchanges.bithumb import Bithumb
 from exchange_price_exporter.exchanges.coinone import Coinone
+from exchange_price_exporter.exchanges.kucoin import Kucoin
 
-by_name = dict(bithumb=Bithumb, coinone=Coinone)
+integrations = dict(bithumb=Bithumb, coinone=Coinone, kucoin=Kucoin)
