@@ -1,6 +1,5 @@
 from typing import List
 import logging
-
 import queue
 import schedule
 import threading
@@ -10,6 +9,7 @@ from prometheus_client import Gauge
 
 from exchange_price_exporter.config import ExporterPairConfig
 from exchange_price_exporter.pair import Pair
+from exchange_price_exporter.signalhandler import SignalHandler
 
 log = logging.getLogger(__name__)
 
@@ -24,9 +24,11 @@ class Updater:
     ) -> None:
         self.queue: queue.Queue = queue.Queue()
         self.interval = interval
-        self.threads = [
-            threading.Thread(target=self.worker) for _ in range(threads)
-        ]
+        self.threads: List[threading.Thread] = []
+        for _ in range(threads):
+            thread = threading.Thread(target=self.worker)
+            thread.setDaemon(True)
+            self.threads.append(thread)
         self.metrics = dict(
             candle=Gauge(
                 name="candle",
@@ -56,6 +58,7 @@ class Updater:
             log.debug("worker is done")
 
     def start(self) -> None:
+        signal_handler = SignalHandler()
         for pair in self.pairs:
             log.debug(f"scheduling pair {pair}")
             schedule.every(self.interval).minutes.at(":30").do(
@@ -63,6 +66,6 @@ class Updater:
             )
         for thread in self.threads:
             thread.start()
-        while True:
+        while not signal_handler.stop:
             schedule.run_pending()
             time.sleep(1)
