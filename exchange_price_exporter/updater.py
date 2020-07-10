@@ -24,7 +24,7 @@ class Updater:
     ) -> None:
         self.queue: queue.Queue = queue.Queue()
         self.interval = interval
-        self.threads = []
+        self.threads: List[threading.Thread] = []
         for _ in range(threads):
             thread = threading.Thread(target=self.worker)
             thread.setDaemon(True)
