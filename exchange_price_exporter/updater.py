@@ -22,7 +22,7 @@ class Updater:
         pairs: List[ExporterPairConfig],
         threads: int,
     ) -> None:
-        self.queue = queue.Queue()
+        self.queue: queue.Queue = queue.Queue()
         self.interval = interval
         self.threads = self.get_threads(threads)
         self.metrics = dict(
