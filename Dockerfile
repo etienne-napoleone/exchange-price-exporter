@@ -19,8 +19,9 @@ FROM python:3.7-alpine
 WORKDIR /app
 
 COPY --from=builder /app/dist /app
-COPY config.toml /app/config.toml
 
 RUN pip install exchange_price_exporter-*.whl
+
+COPY config.toml /app/config.toml
 
 ENTRYPOINT [ "exchange-price-exporter" ]
