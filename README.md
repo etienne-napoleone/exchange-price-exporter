@@ -1,11 +1,15 @@
 # exchange-price-exporter
 
+<img src="./assets/screenshot.png">
+
 <a href="../../actions"><img alt="build status" src="https://github.com/setten-io/exchange-price-exporter/workflows/build/badge.svg"></a>
 <a href="https://hub.docker.com/repository/docker/settenio/exchange-price-exporter"><img alt="Docker Image version" src="https://img.shields.io/docker/v/settenio/exchange-price-exporter?sort=semver"></a>
 <a href="LICENSE"><img alt="Licence" src="https://img.shields.io/github/license/setten-io/exchange-price-exporter"></a>
 <a href="https://github.com/psf/black"><img alt="Codestyle: black" src="https://img.shields.io/badge/codestyle-black-black"></a>
 
 Prometheus blockchain exchange price exporter
+
+
 
 ## Usage
 
@@ -29,8 +33,13 @@ A docker image is available on docker hub.
 The default location for the config file is under `/app/config.toml`.
 
 ```
-docker run -v myconfig.toml:/app/config.toml settenio/exchange-price-exporter:<VERSION>
+docker run \
+  -v myconfig.toml:/app/config.toml \
+  -p 8000:8000 \
+  settenio/exchange-price-exporter:<VERSION>
 ```
+
+You can then access the exported metrics at http://localhost:8000
 
 ## Configuration
 
