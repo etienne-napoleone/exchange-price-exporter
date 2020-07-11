@@ -7,7 +7,7 @@
 <a href="LICENSE"><img alt="Licence" src="https://img.shields.io/github/license/setten-io/exchange-price-exporter"></a>
 <a href="https://github.com/psf/black"><img alt="Codestyle: black" src="https://img.shields.io/badge/codestyle-black-black"></a>
 
-Prometheus blockchain exchange price exporter
+Prometheus cryptocurrency exchanges price exporter
 
 
 
