@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from typing import Dict
 from typing import Optional
 import json
@@ -11,7 +10,7 @@ from exchange_price_exporter.candle import Candle
 log = logging.getLogger(__name__)
 
 
-class BaseExchange(ABC):
+class BaseExchange:
     def __init__(
         self,
         name: str,
@@ -60,6 +59,5 @@ class BaseExchange(ABC):
             else self.market_ticker_override.get(market, market).lower()
         )
 
-    @abstractmethod
     def get(self, currency: str, market: str) -> Candle:
         "Get candle data from excahnge and return a `Candle`"

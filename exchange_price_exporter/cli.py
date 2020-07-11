@@ -20,6 +20,7 @@ log = logging.getLogger(__name__)
 @click.version_option(version=__version__, message="%(prog)s, v%(version)s")
 def entrypoint(c: str) -> None:
     """Exchange price exporter."""
+    log.info(f"starting exchange_price_exporter v{__version__}")
     config = Config(c)
     if config.log.debug:
         logging.getLogger("exchange_price_exporter").setLevel(logging.DEBUG)
@@ -33,5 +34,4 @@ def entrypoint(c: str) -> None:
         threads=config.exporter.threads,
     )
     start_http_server(port=config.server.port)
-    log.info(f"starting exchange_price_exporter v{__version__}")
     updater.start()

@@ -1,6 +1,5 @@
 from typing import List
 import logging
-
 import queue
 import schedule
 import threading
@@ -10,6 +9,7 @@ from prometheus_client import Gauge
 
 from exchange_price_exporter.config import ExporterPairConfig
 from exchange_price_exporter.pair import Pair
+from exchange_price_exporter.signalhandler import SignalHandler
 
 log = logging.getLogger(__name__)
 
@@ -24,9 +24,7 @@ class Updater:
     ) -> None:
         self.queue: queue.Queue = queue.Queue()
         self.interval = interval
-        self.threads = [
-            threading.Thread(target=self.worker) for _ in range(threads)
-        ]
+        self.threads = self.get_threads(threads)
         self.metrics = dict(
             candle=Gauge(
                 name="candle",
@@ -34,17 +32,36 @@ class Updater:
                 labelnames=["exchange", "currency", "market", "olhcv"],
             )
         )
-        self.pairs = [
-            Pair(
-                ttl=self.interval * 60 * 2,
-                exchange_name=pair.exchange,
-                currency=pair.currency,
-                market=pair.market,
-                gauge=self.metrics["candle"],
-            )
-            for pair in pairs
-        ]
+        self.pairs = self.get_pairs(pairs)
+
         log.debug(f"created metrics {self.metrics}")
+
+    def get_pairs(self, pairs: List[ExporterPairConfig]) -> List[Pair]:
+        valid_pairs = []
+        for pair in pairs:
+            try:
+                valid_pairs.append(
+                    Pair(
+                        ttl=self.interval * 60 * 2,
+                        exchange_name=pair.exchange,
+                        currency=pair.currency,
+                        market=pair.market,
+                        gauge=self.metrics["candle"],
+                    )
+                )
+            except KeyError:
+                log.warning(
+                    f"ignored pair with unsuported exchange '{pair.exchange}'"
+                )
+        return valid_pairs
+
+    def get_threads(self, count: int) -> List[threading.Thread]:
+        threads = []
+        for _ in range(count):
+            thread = threading.Thread(target=self.worker)
+            thread.setDaemon(True)
+            threads.append(thread)
+        return threads
 
     def worker(self) -> None:
         while 1:
@@ -56,6 +73,7 @@ class Updater:
             log.debug("worker is done")
 
     def start(self) -> None:
+        signal_handler = SignalHandler()
         for pair in self.pairs:
             log.debug(f"scheduling pair {pair}")
             schedule.every(self.interval).minutes.at(":30").do(
@@ -63,6 +81,6 @@ class Updater:
             )
         for thread in self.threads:
             thread.start()
-        while True:
+        while not signal_handler.stop:
             schedule.run_pending()
             time.sleep(1)

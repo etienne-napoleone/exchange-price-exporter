@@ -50,9 +50,9 @@
   },
   "editable": true,
   "gnetId": null,
-  "graphTooltip": 0,
+  "graphTooltip": 1,
   "id": null,
-  "iteration": 1594052518966,
+  "iteration": 1594321514275,
   "links": [],
   "panels": [
     {
@@ -182,7 +182,7 @@
       "nullPointMode": "connected",
       "nullText": null,
       "options": {},
-      "postfix": " $market",
+      "postfix": " $currency",
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
@@ -330,7 +330,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "fill": 1,
+      "fill": 10,
       "fillGradient": 0,
       "gridPos": {
         "h": 10,
@@ -414,7 +414,7 @@
       }
     }
   ],
-  "refresh": "30s",
+  "refresh": "10s",
   "schemaVersion": 19,
   "style": "dark",
   "tags": [],
@@ -487,5 +487,5 @@
   "timezone": "",
   "title": "Pairs data",
   "uid": "ojbbiYGGk",
-  "version": 18
+  "version": 3
 }
